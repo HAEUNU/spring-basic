@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>new product form </title>
+</head>
+<body>
+    <h1> product form </h1>
+    <!-- Controller 폼 요청에서 보내준 ProductDTO 객체를 form태그에 th:object로 연결 -->
+    <form action="/sample2/newProduct" th:object="${productDTO}"  method="post">
+        <div>
+            <label for="productName">상품명</label>
+            <input type="text" th:field="*{productName}" id="productName" />
+        </div>
+        <div>
+            <label for="price">가격</label>
+            <input type="text" th:field="*{price}" id="price"/>
+        </div>
+        <div>
+            <label for="quantity">수량</label>
+            <input type="text" th:field="*{quantity}" id="quantity"/>
+        </div>
+        <!-- [ 다양한 입력방식 ] -->
+        <!-- 단일 체크박스 -->
+        <div>* 판매 상태 *</div>
+        <div>
+            <label for="onSale">판매중</label>
+            <input type="checkbox" th:field="*{onSale}" id="onSale"/>
+            <!--
+            <input type="checkbox" name="onSale" id="onSale"/>
+            <input type="hidden" name="_onSale" value="on"/>  체크 해제를 위한 히든 필드 -->
+        </div>
+        <!-- 멀티 체크박스 -->
+        <div>* 색상 옵션 *</div>
+        <div th:each="color : ${colors}"> <!-- color는 key:value로 colors 해쉬맵의 요소 한개를 담는다 -->
+            <input type="checkbox" th:field="*{colors}" th:value="${color.key}" />
+            <!-- th:field = dto. name,id 자동으로 만들어줌. id는 유일한 값이여야 하므로 이름뒤에 1,2,3으로 숫자 부착됨  -->
+            <label th:for="${#ids.prev('colors')}" th:text="${color.value}"></label>
+            <!-- for는 직전에(prev)사용한 colors의 id 속성값으로 지정.  cololr.value는 해쉬맵의 value 꺼내서 지정   -->
+        </div>
+        <!-- 라디오 -->
+        <div>* 상품 종류 *</div>
+        <div th:each="type: ${productType}">
+            <input type="radio"  th:field="*{productType}"  th:value="${type.name()}" />
+            <label th:for="${#ids.prev('productType')}" th:text="${type.description}"></label>
+        </div>
+        <!-- 셀렉트 -->
+        <div>* 배송타입 *</div>
+        <div>
+            <select name="deliveryType">
+                <option value="">-- 배송타입 선택 --</option>
+                <option th:each="dType : ${deliveryTypes}" th:value="${dType.type}" th:text="${dType.typeName}"></option>
+            </select>
+        </div>
+        <div>
+            <button type="reset">재작성</button>
+            <button type="submit">상품 등록</button>
+        </div>
+    </form>
+
+</body>
+</html>

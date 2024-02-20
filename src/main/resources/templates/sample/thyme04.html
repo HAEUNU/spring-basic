@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>thyme04</title>
+</head>
+<body>
+    <h1> thymeleaf 04 </h1>
+    <h3> 반복 </h3>
+    <table border="1">
+        <tr>
+            <td>username</td>
+            <td>age</td>
+        </tr>
+        <tr th:each="user : ${list}">
+            <td th:text="${user.username}">username</td>
+            <td th:text="${user.age}">0</td>
+        </tr>
+    </table>
+    <hr />
+    <table border="1">
+        <tr>
+            <td>username</td>
+            <td>age</td>
+            <td>userStat.index</td>
+            <td>userStat.count</td>
+            <td>userStat.size</td>
+            <td>userStat.even</td>
+            <td>userStat.odd</td>
+            <td>userStat.first</td>
+            <td>userStat.last</td>
+            <td>userStat.current</td>
+        </tr>
+        <hr />
+        <tr th:each="user, userStat : ${list}">
+            <td th:text="${user.username}">username</td>
+            <td th:text="${user.age}">0</td>
+            <td th:text="${userStat.index}"></td>
+            <td th:text="${userStat.count}"></td>
+            <td th:text="${userStat.size}"></td>
+            <td th:text="${userStat.even}"></td>
+            <td th:text="${userStat.odd}"></td>
+            <td th:text="${userStat.first}"></td>
+            <td th:text="${userStat.last}"></td>
+            <td th:text="${userStat.current}"></td>
+        </tr>
+    </table>
+
+</body>
+</html>

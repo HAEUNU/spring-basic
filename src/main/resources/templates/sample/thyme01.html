@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>thyme01</title>
+</head>
+<body>
+    <h1>thyme01</h1>
+    <h3>thymeleaf로 출력</h3>
+    <!--
+    <ul>
+        <li>컨턴츠 안에서 직접 출력 : [[${data}]]</li>
+        <li>th:text 사용 <span th:text="${data}"></span></li>
+        <li>컨턴츠 안에서 직접 출력 unescape : [(${data})]</li>
+        <li>th:utext 사용 <span th:utext="${data}"></span></li>
+    </ul>
+    -->
+    <h3>SpringEL 표현식</h3>
+    <ul> Object
+        <li>${userA.username} : <span th:text="${userA.username}"></span></li>
+        <li>${userA['username']} : <span th:text="${userA['username']}"></span></li>
+        <li>${userA.getUsername()} : <span th:text="${userA.getUsername()}"></span></li>
+    </ul>
+    <ul> List
+        <li>${list[0].username} : <span th:text="${list[0].username}"></span></li>
+        <li>${list[0]['username']} : <span th:text="${list[0]['username']}"></span></li>
+        <li>${list[0].getUsername()} : <span th:text="${list[0].getUsername()}"></span></li>
+    </ul>
+    <ul> Map
+        <li>${map['userA'].username} : <span th:text="${map['userA'].username}"></span></li>
+        <li>${map['userA']['username']} : <span th:text="${map['userA']['username']}"></span></li>
+        <li>${map['userA'].getUsername()} : <span th:text="${map['userA'].getUsername()}"></span></li>
+    </ul>
+    <h3>지역변수 선언</h3>
+    <div th:with="first=${list[0]}"> <!-- list의 0번방에 있는 User 객체 한개 꺼내 first변수에 담기 -->
+        <p>처음 유저의 이름은 <span th:text="${first.username}"></span> 입니다.</p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>thyme05</title>
+</head>
+<body>
+    <h1> thymeleaf 05 </h1>
+    <h3> if, unless </h3>
+    <table border="1">
+        <tr>
+            <td>no.</td>
+            <td>username</td>
+            <td>age</td>
+            <td>성인 - 미성년자</td>
+        </tr>
+        <tr th:each="user, userStat : ${list}">
+            <td th:text="${userStat.count}">no</td>
+            <td th:text="${user.username}">username</td>
+            <td th:text="${user.age}">0</td>
+            <td th:text="성인" th:unless="${user.age < 20}"></td>
+            <td th:text="미성년자" th:if="${user.age < 20}"></td>
+        </tr>
+    </table>
+
+    <h3> switch </h3>
+    <table border="1">
+        <tr>
+            <td>no.</td>
+            <td>username</td>
+            <td>age</td>
+        </tr>
+        <tr th:each="user, userStat : ${list}">
+            <td th:text="${userStat.count}">no</td>
+            <td th:text="${user.username}">username</td>
+            <td th:switch="${user.age}">
+                <span th:case="10">10살</span>
+                <span th:case="20">20살</span>
+                <span th:case="*">기타</span>
+            </td>
+        </tr>
+    </table>
+
+    <!-- 인라인 사용 X -->
+    <script>
+        let username = [[${user.username}]];
+        let age = [[${user.age}]];
+        // 내추럴 템플릿
+        let username2 = /*[[${user.username}]]*/ "test username";
+        let user = [[${user}]]; // toString 리턴값으로
+    </script>
+    <!-- 인라인 사용 O -->
+    <script th:inline="javascript">
+        let username = [[${user.username}]];
+        let age = [[${user.age}]];
+        let username2 = /*[[${user.username}]]*/ "test username";
+        let user = [[${user}]]; // 객체를 JSON으로 변환
+    </script>
+
+</body>
+</html>
